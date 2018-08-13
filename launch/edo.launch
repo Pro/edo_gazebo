@@ -2,6 +2,7 @@
 <launch>
   <arg name="paused" default="false" doc="Starts gazebo in paused mode" />
   <arg name="gui" default="true" doc="Starts gazebo gui" />
+  <arg name="robot_name" default="edo" />
   
   <!-- startup simulated world -->
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
@@ -17,9 +18,13 @@
   <!-- push robot_description to factory and spawn robot in gazebo -->
   <node name="spawn_gazebo_model" pkg="gazebo_ros" type="spawn_model" args="-urdf -param robot_description -model robot -z 0.1" respawn="false" output="screen" />
 
-  <include file="$(find edo_gazebo)/launch/controller_utils.launch"/>
+  <include file="$(find edo_gazebo)/launch/controller_utils.launch">
+    <arg name="robot_name" value="$(arg robot_name)"/>
+  </include>
 
-  <rosparam file="$(find edo_gazebo)/controller/arm_controller_edo.yaml" command="load"/>
-  <node name="arm_controller_spawner" pkg="controller_manager" type="controller_manager" args="spawn arm_controller" respawn="false" output="screen"/>
+  <group ns="$(arg robot_name)">
+    <rosparam file="$(find edo_gazebo)/controller/arm_controller_edo.yaml" command="load"/>
+    <node name="arm_controller_spawner" pkg="controller_manager" type="spawner" args="arm_controller" respawn="false" output="screen"/>
+  </group>
 
 </launch>

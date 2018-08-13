@@ -1,18 +1,40 @@
 <?xml version="1.0"?>
 <launch>
+  <arg name="robot_name" default="edo" />
 
-  <!-- Robot state publisher -->
-  <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher">
-    <param name="publish_frequency" type="double" value="50.0" />
-    <param name="tf_prefix" type="string" value="" />
-  </node>
+  <group ns="$(arg robot_name)">
+    <!-- Robot state publisher -->
+    <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher">
+      <param name="publish_frequency" type="double" value="50.0" />
+      <param name="tf_prefix" type="string" value="" />
+    </node>
 
-  <!-- Fake Calibration -->
-  <node pkg="rostopic" type="rostopic" name="fake_joint_calibration"
-        args="pub /calibrated std_msgs/Bool true" />
-  
-  <!-- joint_state_controller -->
-  <rosparam file="$(find edo_gazebo)/controller/joint_state_controller.yaml" command="load"/>
-  <node name="joint_state_controller_spawner" pkg="controller_manager" type="controller_manager" args="spawn joint_state_controller" respawn="false" output="screen"/>
-  
+    <!-- Fake Calibration -->
+    <node pkg="rostopic" type="rostopic" name="fake_joint_calibration"
+          args="pub /calibrated std_msgs/Bool true" />
+
+    <!-- joint_state_controller -->
+    <rosparam file="$(find edo_gazebo)/controller/joint_state_controller.yaml" command="load"/>
+    <node name="joint_state_controller_spawner" pkg="controller_manager" type="controller_manager" args="spawn joint_state_controller" respawn="false" output="screen"/>
+  </group>
+
+  <!-- Spawn controllers - it uses an Effort Controller for each joint -->
+  <!--group ns="$(arg robot_name)" unless="$(arg trajectory)">
+
+    <include file="$(find iiwa_control)/launch/iiwa_control.launch">
+      <arg name="hardware_interface" value="$(arg hardware_interface)" />
+      <arg name="controllers" value="joint_state_controller
+                 $(arg hardware_interface)_J1_controller
+                 $(arg hardware_interface)_J2_controller
+                 $(arg hardware_interface)_J3_controller
+                 $(arg hardware_interface)_J4_controller
+                 $(arg hardware_interface)_J5_controller
+                 $(arg hardware_interface)_J6_controller
+                 $(arg hardware_interface)_J7_controller"/>
+      <arg name="robot_name" value="$(arg robot_name)" />
+      <arg name="model" value="$(arg model)" />
+    </include>
+
+  </group-->
+
 </launch>
