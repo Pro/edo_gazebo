@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<launch>
+  <arg name="paused" default="false" doc="Starts gazebo in paused mode" />
+  <arg name="gui" default="true" doc="Starts gazebo gui" />
+  <arg name="robot_name" default="edo" />
+  <arg name="upload_launch" default="$(find edo_description)/launch/edo_upload.launch" />
+  
+  <!-- startup simulated world -->
+  <include file="$(find edo_gazebo)/launch/edo.launch">
+    <arg name="paused" default="$(arg paused)"/>
+    <arg name="gui" value="$(arg gui)"/>
+    <arg name="robot_name" value="$(arg robot_name)"/>
+    <arg name="upload_launch" value="$(arg upload_launch)"/>
+  </include>
+
+  <group ns="$(arg robot_name)">
+    <rosparam file="$(find edo_gazebo)/controller/gripper_controller_edo.yaml" command="load"/>
+    <node name="edo_gripper_left_base_controller_spawner" pkg="controller_manager" type="spawner" args="edo_gripper_left_base_controller" respawn="false" output="screen"/>
+    <node name="edo_gripper_left_finger_controller_spawner" pkg="controller_manager" type="spawner" args="edo_gripper_left_finger_controller" respawn="false" output="screen"/>
+    <node name="edo_gripper_right_base_controller_spawner" pkg="controller_manager" type="spawner" args="edo_gripper_right_base_controller" respawn="false" output="screen"/>
+    <node name="edo_gripper_right_finger_controller_spawner" pkg="controller_manager" type="spawner" args="edo_gripper_right_finger_controller" respawn="false" output="screen"/>
+  </group>
+
+</launch>

@@ -3,7 +3,8 @@
   <arg name="paused" default="false" doc="Starts gazebo in paused mode" />
   <arg name="gui" default="true" doc="Starts gazebo gui" />
   <arg name="robot_name" default="edo" />
-  
+  <arg name="upload_launch" default="$(find edo_description)/launch/edo_upload.launch" />
+
   <!-- startup simulated world -->
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
     <arg name="world_name" default="worlds/empty.world"/>
@@ -12,7 +13,7 @@
   </include>
 
   <!-- send robot urdf to param server -->
-  <include file="$(find edo_description)/launch/edo_upload.launch">
+  <include file="$(arg upload_launch)">
   </include>
 
   <!-- push robot_description to factory and spawn robot in gazebo -->

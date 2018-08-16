@@ -8,22 +8,23 @@ arm_controller:
      - edo_joint_5
      - edo_joint_6
   constraints:
-      goal_time: 0.6
-      stopped_velocity_tolerance: 0.05
-      edo_joint_1: {trajectory: 0.1, goal: 0.1}
-      edo_joint_2: {trajectory: 0.1, goal: 0.1}
-      edo_joint_3: {trajectory: 0.1, goal: 0.1}
-      edo_joint_4: {trajectory: 0.1, goal: 0.1}
-      edo_joint_5: {trajectory: 0.1, goal: 0.1}
-      edo_joint_6: {trajectory: 0.1, goal: 0.1}
+      goal_time: 20.0
+      stopped_velocity_tolerance: 1.0
+      edo_joint_1: {trajectory: 10, goal: 0.15}
+      edo_joint_2: {trajectory: 10, goal: 0.15}
+      edo_joint_3: {trajectory: 10, goal: 0.15}
+      edo_joint_4: {trajectory: 10, goal: 0.15}
+      edo_joint_5: {trajectory: 10, goal: 0.15}
+      edo_joint_6: {trajectory: 10, goal: 0.15}
+
   stop_trajectory_duration: 0.5
   state_publish_rate:  25
   action_monitor_rate: 10
 # We need to define PID gains but if we do that the robot is somehow broken in gazebo
 #gazebo_ros_control/pid_gains:
-#  edo_joint_1: {p: 100.0, i: 0.01, d: 10.0}
-#  edo_joint_2: {p: 100.0, i: 0.01, d: 10.0}
-#  edo_joint_3: {p: 100.0, i: 0.01, d: 10.0}
-#  edo_joint_4: {p: 100.0, i: 0.01, d: 10.0}
-#  edo_joint_5: {p: 100.0, i: 0.01, d: 10.0}
-#  edo_joint_6: {p: 100.0, i: 0.01, d: 10.0}
+#  edo_joint_1: {p: 16000, d: 5.0, i: 2, i_clamp: 2}
+#  edo_joint_2: {p: 16000, d: 5.0, i: 2, i_clamp: 2}
+#  edo_joint_3: {p: 16000, d: 5.0, i: 2, i_clamp: 2}
+#  edo_joint_4: {p: 16000, d: 5.0, i: 2, i_clamp: 2}
+#  edo_joint_5: {p: 16000, d: 5.0, i: 2, i_clamp: 2}
+#  edo_joint_6: {p: 16000, d: 5.0, i: 2, i_clamp: 2}

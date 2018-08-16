@@ -1,0 +1,13 @@
+edo_gripper_left_base_controller:
+  type: position_controllers/JointPositionController
+  joint: edo_gripper_left_base_joint
+edo_gripper_left_finger_controller:
+  type: position_controllers/JointPositionController
+  joint: edo_gripper_left_finger_joint
+edo_gripper_right_base_controller:
+  type: position_controllers/JointPositionController
+  joint: edo_gripper_right_base_joint
+edo_gripper_right_finger_controller:
+  type: position_controllers/JointPositionController
+  joint: edo_gripper_right_finger_joint
+
