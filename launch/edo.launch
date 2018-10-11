@@ -14,11 +14,13 @@
   </include>
 
   <!-- send robot urdf to param server -->
-  <include file="$(arg upload_launch)">
-  </include>
 
-  <!-- push robot_description to factory and spawn robot in gazebo -->
-  <node name="spawn_gazebo_model" pkg="gazebo_ros" type="spawn_model" args="-urdf -param robot_description -model robot" respawn="false" output="screen" />
+  <group ns="$(arg robot_name)">
+    <include file="$(arg upload_launch)">
+    </include>
+    <!-- push robot_description to factory and spawn robot in gazebo -->
+    <node name="spawn_gazebo_model" pkg="gazebo_ros" type="spawn_model" args="-urdf -param robot_description -model robot" respawn="false" output="screen" />
+  </group>
 
   <include file="$(find edo_gazebo)/launch/controller_utils.launch">
     <arg name="robot_name" value="$(arg robot_name)"/>
