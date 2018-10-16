@@ -3,7 +3,7 @@
   <arg name="paused" default="false" doc="Starts gazebo in paused mode" />
   <arg name="gui" default="true" doc="Starts gazebo gui" />
   <arg name="robot_name" default="edo" />
-  <arg name="upload_launch" value="$(find edo_gripper)/launch/edo_gripper_dummy_upload.launch"/>
+  <arg name="upload_launch" default="$(find edo_gripper)/launch/edo_gripper_dummy_upload.launch"/>
   <arg name="world_name" default="worlds/empty.world" />
   
   <!-- startup simulated world -->
