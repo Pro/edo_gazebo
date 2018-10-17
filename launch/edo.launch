@@ -31,4 +31,8 @@
     <node name="arm_controller_spawner" pkg="controller_manager" type="spawner" args="arm_controller" respawn="false" output="screen"/>
   </group>
 
+  <node pkg="tf2_ros" type="static_transform_publisher" name="$(arg robot_name)_world_robot_tf_broadcaster" args="0 0 0 0 0 0 world $(arg robot_name)/world" />
+
+
+
 </launch>
