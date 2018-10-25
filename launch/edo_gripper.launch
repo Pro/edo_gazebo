@@ -5,6 +5,8 @@
   <arg name="robot_name" default="edo" />
   <arg name="upload_launch" default="$(find edo_gripper)/launch/edo_gripper_dummy_upload.launch"/>
   <arg name="world_name" default="worlds/empty.world" />
+  <arg name="origin_xyz" default="'0 0 0'"/>
+  <arg name="origin_rpy" default="'0 0 0'"/>
   
   <!-- startup simulated world -->
   <include file="$(find edo_gazebo)/launch/edo.launch">
@@ -13,6 +15,8 @@
     <arg name="robot_name" value="$(arg robot_name)"/>
     <arg name="upload_launch" value="$(arg upload_launch)"/>
     <arg name="world_name" default="$(arg world_name)"/>
+    <arg name="origin_xyz" value="$(arg origin_xyz)"/>
+    <arg name="origin_rpy" value="$(arg origin_rpy)"/>
   </include>
 
   <group ns="$(arg robot_name)">
